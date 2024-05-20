@@ -24,13 +24,13 @@ public class UserServiceImpl implements UserService {
             String query = "{call EMOB.dpk_apps_user_management.dpr_create_user(?,?,?,?,?,?,?,?,?)}";
             // Prepare the CallableStatement
             CallableStatement cs = connection.prepareCall(query);
-            cs.setString(1, "nusrat");
-            cs.setString(2, "abc@gmail.com");
-            cs.setString(3, "553");
-            cs.setString(4, "01255");
-            cs.setString(5, "afsdf");
-            cs.setString(6, "m");
-            cs.setString(7, "545646");
+            cs.setString(1, request.getUserId());
+            cs.setString(2, request.getUserPass());
+            cs.setString(3, request.getUserPass());
+            cs.setString(4, request.getMobile());
+            cs.setString(5, request.getAddress());
+            cs.setString(6, request.getGender());
+            cs.setString(7, request.getDateOfBirth());
 
             cs.registerOutParameter(8, OracleTypes.NUMBER);
             cs.registerOutParameter(9, OracleTypes.VARCHAR);
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
         try{
             PreparedStatement p=null;
-            String sql="select * from APP_USER_MASTER_TEST";
+            String sql="select * from APP_USER_MASTER_TEST ORDER BY USER_ID";
             p =connection.prepareStatement(sql);
             rs = p.executeQuery();
 
