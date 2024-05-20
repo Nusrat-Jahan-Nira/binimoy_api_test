@@ -17,8 +17,6 @@ import java.util.List;
 public class RegistrationController {
     RegistrationService registrationService;
 
-    @Autowired
-    UserService userService;
 
     @PostMapping("/get-registration")
     public RegistrationResDto getRegistration(@RequestBody RegistrationReqDto req){
@@ -26,25 +24,5 @@ public class RegistrationController {
         return resDto;
     }
 
-    @PostMapping("/createUser")
-    public UserResDto createUser(@RequestBody UserReqDto request) {
-        UserResDto resDto = null;
-        try {
-            resDto = userService.createUser(request);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return resDto;
-    }
 
-    @GetMapping("/getUser")
-    public List<UserReqDto> getUser() {
-        List<UserReqDto> res = null;
-        try {
-            res = userService.getUser();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return res;
-    }
 }

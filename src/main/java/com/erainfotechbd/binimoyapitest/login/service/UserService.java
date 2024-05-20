@@ -11,4 +11,6 @@ public interface UserService {
     UserResDto createUser(UserReqDto request);
 
     List<UserReqDto> getUser();
+
+//    UserReqDto updateUser(UserReqDto request);
 }

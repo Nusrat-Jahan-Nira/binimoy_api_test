@@ -15,12 +15,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResDto createUser(UserReqDto request)  {
+    public UserResDto createUser(UserReqDto request) {
 
         UserResDto resModel = new UserResDto();
         Connection connection = DBConnection.getcon();
 
-        try{
+        try {
             String query = "{call EMOB.dpk_apps_user_management.dpr_create_user(?,?,?,?,?,?,?,?,?)}";
             // Prepare the CallableStatement
             CallableStatement cs = connection.prepareCall(query);
@@ -43,13 +43,12 @@ public class UserServiceImpl implements UserService {
             resModel.setOutCode(Integer.parseInt(outCode));
             resModel.setOutMessage(outMessage);
 
-           return resModel;
+            return resModel;
 
         } catch (Exception e) {
-        System.out.println("ClassNotFoundException...."+e);
-        throw new RuntimeException(e);
-        }
-        finally {
+            System.out.println("ClassNotFoundException...." + e);
+            throw new RuntimeException(e);
+        } finally {
             try {
                 assert connection != null;
                 connection.close();
@@ -62,16 +61,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserReqDto> getUser(){
+    public List<UserReqDto> getUser() {
 
         Connection connection = DBConnection.getcon();
         ResultSet rs = null;
         List<UserReqDto> userReqDtoList = new ArrayList<>();
 
-        try{
-            PreparedStatement p=null;
-            String sql="select * from APP_USER_MASTER_TEST ORDER BY USER_ID";
-            p =connection.prepareStatement(sql);
+        try {
+            PreparedStatement p = null;
+            String sql = "select * from APP_USER_MASTER_TEST ORDER BY USER_ID";
+            p = connection.prepareStatement(sql);
             rs = p.executeQuery();
 
             // Printing ID, name, email of customers
@@ -102,16 +101,14 @@ public class UserServiceImpl implements UserService {
                 userReqDtoList.add(userReqDto);
 
 
-
-                System.out.println("timeStamp : "+timeStamp);
+                System.out.println("timeStamp : " + timeStamp);
             }
             return userReqDtoList;
 
         } catch (Exception e) {
-            System.out.println("ClassNotFoundException...."+e);
+            System.out.println("ClassNotFoundException...." + e);
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             try {
                 assert connection != null;
                 connection.close();
@@ -122,4 +119,61 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+//    @Override
+//    public UserReqDto updateUser(UserReqDto request) {
+//        UserReqDto reqModel = new UserReqDto();
+//        Connection connection = DBConnection.getcon();
+//
+//        try {
+//
+//            // Prepare update statement
+//            String updateQuery = "UPDATE your_table SET USER_ID = ?, EMAIL = ?,USER_PASS = ?,MOBILE = ?, ADDRESS = ?,GENDER=?,DATE_OF_BIRTH=?,out_code=?,out_message=? WHERE id = ?";
+//            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+//                preparedStatement.setString(1, request.getUserPass());
+//                preparedStatement.setString(2, request.getUserPass());
+//                preparedStatement.setString(3, request.getMobile());
+//                preparedStatement.setString(4, request.getAddress());
+//                preparedStatement.setString(5, request.getGender());
+//                preparedStatement.setString(6, request.getDateOfBirth());
+//                preparedStatement.setString(7, "0");
+//                preparedStatement.setString(8, "successfully");
+//                preparedStatement.setString(9, request.getUserId());
+//
+//                // Execute the update
+//                int rowsAffected = preparedStatement.executeUpdate();
+//                if (rowsAffected > 0) {
+//                    System.out.println("Record updated successfully.");
+//                } else {
+//                    System.out.println("No record found with ID " + request.getUserId());
+//                }
+//
+//                reqModel.setUserId(request.getUserId());
+//                reqModel.setEmail(request.getEmail());
+//                reqModel.setUserPass(request.getUserPass());
+//                reqModel.setMobile(request.getMobile());
+//                reqModel.setAddress(request.getAddress());
+//                reqModel.setGender(request.getGender());
+//                reqModel.setDateOfBirth(request.getDateOfBirth());
+//
+//                return reqModel;
+//
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println("ClassNotFoundException...." + e);
+//            throw new RuntimeException(e);
+//        } finally {
+//            try {
+//                assert connection != null;
+//                connection.close();
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//            System.out.println("Connection Closed....");
+//        }
+//
+//    }
 }
