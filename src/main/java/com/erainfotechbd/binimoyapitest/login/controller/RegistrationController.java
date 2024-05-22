@@ -15,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
+
+    @Autowired
     RegistrationService registrationService;
 
 
