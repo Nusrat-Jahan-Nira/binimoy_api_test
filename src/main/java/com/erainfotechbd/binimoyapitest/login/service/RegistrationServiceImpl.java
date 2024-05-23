@@ -46,7 +46,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         else{
             res.setUsername(req.getUsername());
-            res.setEmail(null);
+            res.setEmail("null");
             res.setOutCode("1");
             res.setOutMessage("Request Failed!");
         }
